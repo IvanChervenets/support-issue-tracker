@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   before_validation :set_reference_key
+  after_save :send_created_ticket_email
   validates :reference_key,
             format: { with: /(([A-Z]{3}-([A-F]|[0-9]){2})-){2}[A-Z]{3}/i},
             presence: true
@@ -23,9 +24,12 @@ class Ticket < ActiveRecord::Base
 
   private
 
+    def send_created_ticket_email
+      CustomerMailer.created_ticked_email(self).deliver_now
+    end
+
     def set_reference_key
       self.reference_key = generate_reference_key
-      binding.pry
     end
 
     def generate_reference_key
