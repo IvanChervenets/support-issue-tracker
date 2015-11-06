@@ -1,0 +1,24 @@
+<%= link_to 'Tickets', controller: 'tickets' %>
+
+<h1>Listing articles</h1>
+
+<%= link_to 'New ticket', new_ticket_path %>
+
+<table>
+  <tr>
+    <th>Customer</th>
+    <th>Text</th>
+  </tr>
+
+  <% @tickets.each do |ticket| %>
+    <tr>
+      <td><%= ticket.customer_name %></td>
+      <td><%= ticket.description %></td>
+      <td><%= link_to 'Show', ticket_path(ticket) %></td>
+      <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+      <td><%= link_to 'Destroy', ticket_path(ticket),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>

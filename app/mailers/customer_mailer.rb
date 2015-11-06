@@ -3,7 +3,6 @@ class CustomerMailer < ApplicationMailer
     @ticked = ticked
     # @user = user
     # @url  = 'http://example.com/login'
-    binding.pry
     mail(to: @ticked.customer_email, subject: 'You have created new ticket.')
   end
 

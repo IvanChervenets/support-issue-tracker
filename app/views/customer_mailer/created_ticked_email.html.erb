@@ -9,7 +9,7 @@
   You have successfully added new ticket.<br>
 </p>
 <p>
-  To see it status, just follow this <%= link_to 'link', root_url(:only_path => false, :controller => 'tickets') + '/' + @ticked.reference_key %>.
+  To see it status, just follow this <%= link_to 'link', root_url(:only_path => false) + 'tickets/' + @ticked.reference_key %>.
 </p>
 <p>Thanks for joining and have a great day!</p>
 </body>
