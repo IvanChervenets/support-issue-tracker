@@ -25,32 +25,30 @@ class TicketsController < ApplicationController
   # POST /posts.json
   def create
     @ticket = Ticket.new(ticket_params)
-
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Post was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
+    if @ticket.save
+      redirect_to @ticket
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /posts/1
   # PATCH/PUT /posts/1.json
   def update
-    # @ticket = Ticket.find(params[:reference_key])
+    if signed_in?
+      if @ticket.update_attributes(ticket_params)
+        redirect_to @ticket
+      else
+        render action: "edit"
+      end
+    else
+      if @ticket.update_attributes_by_customer(ticket_params)
+        redirect_to @ticket
+      else
+        render action: "edit"
+      end
+    end
 
-    # respond_to do |format|
-    #   if @ticket.update_attributes(title: params[:post][:title], content: params[:post][:content])
-    #     format.html { redirect_to @post, notice: 'Post was successfully updated.' }
-    #     format.json { head :no_content }
-    #   else
-    #     format.html { render action: "edit" }
-    #     format.json { render json: @post.errors, status: :unprocessable_entity }
-    #   end
-    # end
   end
   # DELETE /posts/1
   # DELETE /posts/1.json
@@ -68,8 +66,11 @@ class TicketsController < ApplicationController
     @ticket = Ticket.find_by(reference_key: params[:reference_key])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def post_params
-    params.require(:ticket).permit()
+  def ticket_params
+    params.require(:ticket).permit(:customer_name,
+                                   :customer_email,
+                                   :department_id,
+                                   :subject_id,
+                                   :description)
   end
 end

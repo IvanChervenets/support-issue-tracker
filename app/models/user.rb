@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   validates :username,
             format: { with: /\A[a-zA-Z0-9]+\Z/, message: 'Only allows letters and numbers' },
             length: { in: 1..20, message: 'Length must be between 1 and 20' },
+            uniqueness: { case_sensitive: false },
             presence: true
 
   # Include default devise modules. Others available are:

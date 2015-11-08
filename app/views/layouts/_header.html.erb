@@ -1,0 +1,20 @@
+<header class="navbar navbar-default navbar-fixed-top navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <%= link_to "Company", root_path, id: "logo" %>
+    </div>
+    <div class="nav navbar-nav pull-right">
+      <ul class="nav navbar-nav">
+        <li><%= link_to "Home", root_path %></li>
+        <li><%= link_to "Help", "#" %></li>
+          <% if signed_in? %>
+            <li><%= link_to "Tickets", tickets_path %></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, method: "delete" %></li>
+          <% else %>
+            <li><%= link_to "Contact us", home_contact_path %></li>
+            <li><%= link_to "Sign in", new_user_session_path %></li>
+          <% end %>
+      </ul>
+    </div>
+  </div>
+</header>
