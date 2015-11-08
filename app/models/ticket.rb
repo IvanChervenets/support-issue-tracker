@@ -1,7 +1,7 @@
 class Ticket < ActiveRecord::Base
   before_validation :fill_fields
-  after_create :send_created_ticket_email
-  after_update :send_updated_ticket_email
+  after_create :send_created_ticket_email, :start_history
+  after_update :send_updated_ticket_email, :add_history_record
   validates :reference_key,
             format: { with: /(([A-Z]{3}-([A-F]|[0-9]){2})-){2}[A-Z]{3}/i},
             uniqueness: { case_sensitive: false },
@@ -34,6 +34,14 @@ class Ticket < ActiveRecord::Base
   end
   private
 
+    def start_history
+      TicketHistory.create(ticket_id: self.id, description: 'Ticket has been created.')
+    end
+
+    def add_history_record
+      TicketHistory.create(ticket_id: self.id, description: update_message(self))
+    end
+
     def reset_status
       self.status_id = Status.find_by_name('Waiting for Staff Response').id
     end
@@ -43,11 +51,11 @@ class Ticket < ActiveRecord::Base
     end
 
     def send_updated_ticket_email
-      message = create_update_message(self)
+      message = update_message(self)
       CustomerMailer.updated_ticked_email(self, message).deliver_now
     end
 
-    def create_update_message(ticket)
+    def update_message(ticket)
       message = ""
       ticket.changed.each do |field|
         case field
@@ -74,7 +82,6 @@ class Ticket < ActiveRecord::Base
       if self.new_record?
         self.reference_key = generate_reference_key
         reset_status
-        binding.pry
       end
     end
 
