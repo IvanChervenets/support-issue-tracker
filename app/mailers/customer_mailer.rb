@@ -13,6 +13,6 @@ class CustomerMailer < ApplicationMailer
   def notification_email(ticked, message)
     @ticked = ticked
     @message = message
-    mail(to: @ticked.customer_email, subject: 'Notification from...')
+    mail(to: @ticked.customer_email, subject: 'Notification for your ticket')
   end
 end
