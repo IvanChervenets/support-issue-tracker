@@ -7,15 +7,15 @@ class Ticket < ActiveRecord::Base
             uniqueness: { case_sensitive: false },
             presence: true
   validates :customer_name,
-            format: { with: /\A([A-Z][a-z ,.'`-]{2,40})\z/i, message: 'Only allows letters and numbers' },
-            length: { in: 1..40, message: 'Length must be between 1 and 40' },
+            format: { with: /\A([A-Z][a-z ,.'`-]{2,60})\z/i, message: 'Only allows letters' },
+            length: { in: 1..60, message: 'Length must be between 1 and 60' },
             presence: true
   validates :customer_email,
             format: { with: /\A([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)\z/i, message: 'Not email format' },
             presence: true
   validates :description,
-            format: { with: /\A([A-Z][a-z ,.'`-]{2,150})\z/i, message: 'Only allows letters and numbers' },
-            length: { in: 1..150, message: 'Length must be between 1 and 150' },
+            format: { with: /\A([A-Z][a-z0-9 ,.'`-]{2,250})\z/i, message: 'Only allows letters and numbers' },
+            length: { in: 1..250, message: 'Length must be between 1 and 250' },
             presence: true
   validates :department_id, :subject_id, :status_id, presence: true
   belongs_to :department
