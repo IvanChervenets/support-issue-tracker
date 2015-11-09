@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get 'home/contact'
   root to: 'home#home'
   resources :tickets, param: :reference_key
-  match 'tickets/send_notification' => 'tickets#send_notification', :as =>'send_notification', via: [:post], param: :reference_key
+  match 'tickets/send_notification' => 'tickets#send_notification', :as =>'send_notification', via: [:post]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,6 +1,6 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: :index
+  before_action :set_ticket, only: [:show, :edit, :update, :destroy, :send_notification]
+  before_action :authenticate_user!, only: [:index, :send_notification]
 
   def index
     if params[:filter].presence
@@ -54,10 +54,11 @@ class TicketsController < ApplicationController
     end
   end
 
-  # def send_notification
-  #   message = params[:comments][:cols]
-  #   CustomerMailer.notification_email(@ticket, message).deliver_now
-  # end
+  def send_notification
+    message = params[:notification]
+    CustomerMailer.notification_email(@ticket, message).deliver_now
+    @ticket
+  end
 
   # def destroy
   #   @ticket.destroy

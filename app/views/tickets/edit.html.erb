@@ -2,7 +2,8 @@
 
 <% if signed_in? %>
     <%= render 'ticket_info' %>
-    <%= render 'staff_form' %>>
+    <%= render 'staff_form' %>
+    <%= render 'notification' %>
 <% else %>
     <%= render 'form' %>
 <% end %>
