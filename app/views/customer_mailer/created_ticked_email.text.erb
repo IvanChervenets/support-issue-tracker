@@ -1,9 +1,7 @@
-Welcome to example.com,
+Hello <%= @ticked.customer_name %>.
 ===============================================
 
-You have successfully signed up to example.com,
-your username is: .
+  You have successfully added new ticket.
+  To see it status, just follow this <%= link_to 'link', root_url(:only_path => false) + 'tickets/' + @ticked.reference_key %>.
 
-To login to the site, just follow this link: .
-
-Thanks for joining and have a great day!
+  Thanks and have a great day!

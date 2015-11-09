@@ -1,0 +1,26 @@
+<%= form_for(@ticket) do |f| %>
+    <%= render 'errors' %>
+  <div>
+    <%= f.label "Your name:" %><br>
+    <%= f.text_field :customer_name %>
+  </div>
+  <div>
+    <%= f.label "Your e-mail:" %><br>
+    <%= f.email_field :customer_email %>
+  </div>
+  <div>
+    <%= f.label "Connected department:" %><br>
+    <%= collection_select(:ticket, :department_id, Department.all, :id, :name) %>
+  </div>
+  <div>
+    <%= f.label "Subject:" %><br>
+    <%= collection_select(:ticket, :subject_id, Subject.all, :id, :name) %>
+  </div>
+  <div>
+    <%= f.label "Description:" %><br>
+    <%= f.text_area :description, :size => '80x10' %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

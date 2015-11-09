@@ -1,0 +1,8 @@
+Hello <%= @ticked.customer_name %>.
+===============================================
+
+  Your <%= link_to 'ticket', root_url(:only_path => false) + 'tickets/' + @ticked.reference_key %> was changed:
+
+  <%= @message %>
+
+  Thanks and have a great day!

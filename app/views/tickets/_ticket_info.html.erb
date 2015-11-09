@@ -1,0 +1,39 @@
+<p>
+  <strong>Customer:</strong>
+  <%= @ticket.customer_name %>
+</p>
+
+<p>
+  <strong>Customer e-mail:</strong>
+  <%= @ticket.customer_email %>
+</p>
+
+<p>
+  <strong>Customer:</strong>
+  <%= @ticket.customer_name %>
+</p>
+
+<p>
+  <strong>Department:</strong>
+  <%= @ticket.department.name %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @ticket.subject.name %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @ticket.status.name %>
+</p>
+
+<p>
+  <strong>Owner:</strong>
+  <%= @ticket.owner.full_name if @ticket.owner.presence %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @ticket.description %>
+</p>
