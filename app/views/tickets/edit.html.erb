@@ -1,5 +1,8 @@
-<h1>Editing Ticket</h1>
+<h2>Editing Ticket</h2>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @ticket %>
+<% if signed_in? %>
+    <%= render 'ticket_info' %>
+    <%= render 'staff_form' %>>
+<% else %>
+    <%= render 'form' %>
+<% end %>

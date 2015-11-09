@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+</head>
+<body>
+<h3>Hello <%= @ticked.customer_name %>. </h3>
+<p>
+  Answer for your <%= link_to 'ticket', root_url(:only_path => false) + 'tickets/' + @ticked.reference_key %>. <br>
+</p>
+<p>
+  <%= @message %>
+  </p>
+<p>Thanks and have a great day!</p>
+</body>
+</html>

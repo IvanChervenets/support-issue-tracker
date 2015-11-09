@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-offset-2 col-md-offset-2 col-xs-offset-3 col-sm-offset-2 col-lg-8 col-md-2 col-sm-2 col-xs-6">
+      <h3>History</h3>
+
+      <table class = "table" width = "100%">
+        <tr>
+          <th>Date</th>
+          <th>Descroption</th>
+        </tr>
+
+        <% @ticket.ticket_histories.each do |history| %>
+          <tr>
+            <td class = "center"><%= history.created_at.to_formatted_s(:long) %></td>
+            <td class = "center"><%= history.description %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+</div>

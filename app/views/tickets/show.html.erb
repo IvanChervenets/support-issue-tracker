@@ -1,13 +1,7 @@
-<p id="notice">Ticket</p>
+<h2>Ticket</h2>
 
-<p>
-  <strong>Customer:</strong>
-  <%= @ticket.customer_name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @ticket.description %>
-</p>
+<%= render "ticket_info" %>
 
 <%= link_to 'Edit', edit_ticket_path(@ticket) %>
+
+<%= render 'ticket_history' %>

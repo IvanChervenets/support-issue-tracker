@@ -9,4 +9,10 @@ class CustomerMailer < ApplicationMailer
     @message = message
     mail(to: @ticked.customer_email, subject: 'Your ticked was changed.')
   end
+
+  def notification_email(ticked, message)
+    @ticked = ticked
+    @message = message
+    mail(to: @ticked.customer_email, subject: 'Notification from...')
+  end
 end

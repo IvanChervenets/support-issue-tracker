@@ -3,7 +3,19 @@ class TicketsController < ApplicationController
   before_action :authenticate_user!, only: :index
 
   def index
-    @tickets = Ticket.all
+    if params[:filter].presence
+      if params[:filter] == 'my'
+        @tickets = Ticket.where("owner_id = ?", "#{current_user.id}")
+        @tab = 'my'
+      else
+        @tickets = Ticket.find_by_filter(params[:filter])
+        @tab = params[:filter]
+      end
+    else
+      @tickets = Ticket.find_by_filter('open')
+      @tab = 'open'
+    end
+    # binding.pry
   end
 
   def show
@@ -14,6 +26,7 @@ class TicketsController < ApplicationController
   end
 
   def edit
+    @notification = ""
   end
 
   def create
@@ -27,7 +40,7 @@ class TicketsController < ApplicationController
 
   def update
     if signed_in?
-      if @ticket.update_attributes(ticket_params)
+      if @ticket.update_attributes(staf_ticket_params)
         redirect_to @ticket
       else
         render action: "edit"
@@ -39,8 +52,12 @@ class TicketsController < ApplicationController
         render action: "edit"
       end
     end
-
   end
+
+  # def send_notification
+  #   message = params[:comments][:cols]
+  #   CustomerMailer.notification_email(@ticket, message).deliver_now
+  # end
 
   # def destroy
   #   @ticket.destroy
@@ -59,5 +76,10 @@ class TicketsController < ApplicationController
                                    :department_id,
                                    :subject_id,
                                    :description)
+  end
+
+  def staf_ticket_params
+    params.require(:ticket).permit(:owner_id,
+                                   :status_id)
   end
 end

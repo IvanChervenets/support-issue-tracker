@@ -1,0 +1,14 @@
+<%= form_for(@ticket) do |f| %>
+    <%= render 'errors' %>
+  <div>
+    <%= f.label "Owner:" %><br>
+    <%= collection_select(:ticket, :owner_id, User.all, :id, :full_name) %>
+  </div>
+  <div>
+    <%= f.label "Status:" %><br>
+    <%= collection_select(:ticket, :status_id, Status.all, :id, :name) %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

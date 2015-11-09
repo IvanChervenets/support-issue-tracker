@@ -1,0 +1,11 @@
+<h2>Send notification to customer</h2>
+
+<%= form_for @notification, :url => url_for(:controller => 'tickets', :action => 'send_notification', :reference_key=>@ticket.reference_key) do |f| %>
+    <div>
+      <%= text_area :comments, :cols, :size => '80x10' %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Send" %>
+    </div>
+<% end %>
+

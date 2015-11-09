@@ -24,6 +24,21 @@ class Ticket < ActiveRecord::Base
   belongs_to :owner, class_name: "User"
   has_many :ticket_histories
 
+  def self.find_by_filter (filter)
+    case filter
+      when "open"
+        Ticket.where(owner_id: nil).all
+      when "on_hold"
+        Ticket.where(["status_id = ? or status_id = ?",
+                      "#{Status.find_by_name('Waiting for Customer').id}",
+                      "#{Status.find_by_name('On Hold').id}"]).all
+      when "closed"
+        Ticket.where(["status_id = ? or status_id = ?",
+                      "#{Status.find_by_name('Cancelled').id}",
+                      "#{Status.find_by_name('Completed').id}"]).all
+    end
+  end
+
   def update_attributes_by_customer(ticket_params)
     reset_status
     self.update_attributes(ticket_params)
@@ -60,17 +75,17 @@ class Ticket < ActiveRecord::Base
       ticket.changed.each do |field|
         case field
           when "customer_name"
-            message += "Customer name was changed to " + ticket.customer_name + ". "
+            message += "Customer name was changed to #{ticket.customer_name}. "
           when "customer_email"
-            message += "Customer email was changed to " + ticket.customer_email + ". "
+            message += "Customer email was changed to #{ticket.customer_email}. "
           when "department_id"
-            message += "Department was changed to " + ticket.department.name + ". "
+            message += "Department was changed to #{ticket.department.name}. "
           when "subject_id"
-            message += "Subject was changed to " + ticket.subject.name + ". "
+            message += "Subject was changed to #{ticket.subject.name}. "
           when "owner_id"
-            message += "Owner was changed to " + ticket.owner.first_name + " " + ticket.owner.second_name + ". "
+            message += "Owner was changed to #{ticket.owner.full_name}. "
           when "status_id"
-            message += "Status was changed to " + ticket.status.name + ". "
+            message += "Status was changed to #{ticket.status.name}. "
           when "description"
             message += "Description was changed."
         end
