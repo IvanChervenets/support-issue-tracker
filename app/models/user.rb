@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   validates :first_name, :second_name,
-            format: { with: /\A([A-Z][a-z ,.'`-]{2,20})\z/i, message: 'Only allows letters and numbers' },
-            length: { in: 1..20, message: 'Length must be between 1 and 20' },
+            format: { with: /\A([A-Z][a-z ,.'`-]{2,30})\z/i, message: 'Only allows letters' },
+            length: { in: 1..30, message: 'Length must be between 1 and 30' },
             presence: true
 
   validates :username,
